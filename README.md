@@ -1,106 +1,130 @@
-EDA & Data Visualization: Population and Ratings Analysis
-This repository contains two end-to-end exploratory data analysis (EDA) pipelines built using Python. It demonstrates data preprocessing, feature engineering, and advanced visualizations for:
+````markdown
+# World Population Data Analysis
 
-Global Population Dataset
+## Overview
 
-Ice Cream Ratings Dataset
+This project involves exploratory data analysis (EDA) on a dataset containing population statistics of countries across various decades. The analysis is performed using Python with the Pandas, Matplotlib, and Seaborn libraries. The project also includes visual insights derived from a secondary dataset, `ice_cream_ratings.csv`, to demonstrate plotting and visualization techniques.
 
-Both projects are implemented with pandas, numpy, seaborn, and matplotlib. The code is modular and organized for further integration with machine learning workflows.
+---
 
-Contents
-Copy
-Edit
-/
-├── population_analysis/
-│   ├── world_population.csv
-│   ├── notebooks/
-│   │   └── eda_population.ipynb
-│   └── scripts/
-│       └── population_visuals.py
-├── ratings_analysis/
-│   ├── ice_cream_ratings.csv
-│   ├── notebooks/
-│   │   └── eda_ratings.ipynb
-│   └── scripts/
-│       └── ratings_visuals.py
-└── README.md
-Overview
-1. Population Data Analysis
-Null handling and column normalization
+## Dataset(s)
 
-Feature correlation matrix using heatmap
+1. **Primary Dataset**: `world_population.csv`
+   - **Rows**: 234 countries/territories
+   - **Columns**: 17 fields including population metrics from 1970 to 2022, area, density, growth rate, and continent-wise classification.
 
-Aggregation by continent and time-series trends
+2. **Secondary Dataset** *(for visualization examples only)*: `ice_cream_ratings.csv`
+   - Daily synthetic ratings for flavor, texture, and overall quality.
 
-Outlier detection via boxplots
+---
 
-Descriptive statistics and value distributions
+## Libraries Used
 
-2. Ice Cream Ratings Analysis
-Time-series plots: line, area, and stacked bar
-
-Category distributions: pie charts and histograms
-
-Scatter and box plots for feature variability
-
-Comparison of matplotlib visual styles
-
-Getting Started
-Requirements
-Python ≥ 3.8
-
-pandas
-
-numpy
-
-matplotlib
-
-seaborn
-
-Install dependencies:
-
-bash
-Copy
-Edit
-pip install pandas numpy matplotlib seaborn
-Usage
-To run EDA pipelines:
-
-bash
-Copy
-Edit
-python population_analysis/scripts/population_visuals.py
-python ratings_analysis/scripts/ratings_visuals.py
-Or launch interactive notebooks:
-
-population_analysis/notebooks/eda_population.ipynb
-
-ratings_analysis/notebooks/eda_ratings.ipynb
-
-Example: Population Heatmap
-python
-Copy
-Edit
-import seaborn as sns
-import matplotlib.pyplot as plt
+```python
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+````
 
-df = pd.read_csv("world_population.csv")
-df.columns = df.columns.str.lower().str.replace(" ", "_")
+---
 
-plt.figure(figsize=(10, 8))
-sns.heatmap(df.corr(numeric_only=True), annot=True, fmt=".2f")
-plt.title("Correlation Matrix: Global Population Features")
-plt.tight_layout()
-plt.show()
-Extension Ideas
-Export cleaned data for machine learning pipelines
+## Key Steps in Analysis
 
-Convert charts into interactive dashboards (Streamlit, Dash)
+### 1. Data Loading and Formatting
 
-Add new regions or product categories
+* Loaded the dataset using `pd.read_csv`.
+* Applied `pd.set_option` for float formatting.
+* Normalized column names using `.str.replace()` and `.str.lower()`.
 
-Integrate with SQL or real-time data APIs
+### 2. Descriptive Statistics
 
-License
-This project is released under the MIT License.
+* Used `df.describe()` to extract central tendencies and spread.
+* Checked for missing values via `df.isnull().sum()`.
+* Validated uniqueness across all relevant fields with `df.nunique()`.
+
+### 3. Data Cleaning
+
+* Renamed all columns to snake\_case for consistency and readability.
+
+### 4. Sorting and Grouping
+
+* Sorted data based on `2022_population` to identify top populous nations.
+* Performed continent-wise grouping and mean aggregations for population trends across decades.
+
+### 5. Correlation Analysis
+
+* Computed correlations on numerical features only using `df.corr(numeric_only=True)`.
+* Visualized with a Seaborn heatmap.
+
+### 6. Outlier Detection
+
+* Boxplots were used to visualize and identify outliers across the dataset.
+
+---
+
+## Visualizations
+
+### Population Data (World)
+
+* **Heatmap of Correlations**: Reveals relationships between population metrics and derived fields such as density and growth.
+* **Boxplots**: Outlier detection on numerical data.
+* **Trend Analysis by Continent**: Population growth by continent from 1970 to 2022.
+* **Line Plot**: Population trends across decades per continent.
+
+### Ice Cream Ratings
+
+* **Line Chart**: Subplots for each rating metric over time.
+* **Bar & Horizontal Bar Charts**: Flavor, texture, and overall rating comparisons.
+* **Pie Chart**: Percentage composition of flavor ratings.
+* **Scatter Plot**: Flavor vs. Overall rating.
+* **Histogram**: Frequency distribution of ratings.
+* **Area Plot**: Visual area representation of daily ratings.
+
+---
+
+## Notebooks & Scripts
+
+* Main notebook: `world_population_analysis.ipynb`
+* Optional visualization notebook: `ice_cream_ratings_plotting.ipynb`
+
+---
+
+## Requirements
+
+* Python 3.8+
+* pandas
+* matplotlib
+* seaborn
+* numpy
+
+Install dependencies using:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Usage
+
+1. Clone the repository.
+2. Place `world_population.csv` and `ice_cream_ratings.csv` in the root directory.
+3. Run the notebooks to generate visual insights.
+
+---
+
+## Notes
+
+* All visualizations use built-in Pandas/Matplotlib/Seaborn methods.
+* Project focuses on data quality inspection, transformation, and EDA.
+* No machine learning models are applied; this is purely statistical + visual exploration.
+
+---
+
+## License
+
+This project is intended for research, analysis, and educational demonstration. For licensing, please refer to the `LICENSE` file.
+
+```
+
